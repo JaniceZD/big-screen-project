@@ -10,7 +10,6 @@ export const Chart2 = () => {
     var myChart = echarts.init(divRef.current);
     myChart.setOption(
       createEchartsOptions({
-        ...baseEchartOptions,
         xAxis: {
           type: 'value',
           boundaryGap: [0, 0.01],
