@@ -261,7 +261,7 @@
     }
     .战果,
     .作案手段 {
-      padding: 0 px(24);
+      padding: 0 px(24) px(24);
       > table {
         margin-top: px(38);
         width: 100%;
@@ -288,6 +288,22 @@
       }
     }
     .作案手段 {
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        // 纵向滚动条和横向滚动条宽度
+        width: px(10);
+        height: 100%;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: px(10);
+        box-shadow: inset 0 0 px(2) #0d2d59;
+        background: #00284d;
+      }
+      &::​-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        border-radius: 1px;
+        background: #00284d;
+      }
       > table {
         tbody {
           td {
