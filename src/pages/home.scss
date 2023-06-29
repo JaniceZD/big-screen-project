@@ -26,6 +26,7 @@
   > header {
     height: px(99);
     background-size: cover;
+    background-position: center;
     width: px(2420);
     margin: 0 auto;
   }
@@ -235,7 +236,7 @@
         }
         .legend {
           position: absolute;
-          top: px(40);
+          top: px(20);
           left: px(20);
           display: flex;
           align-items: center;
