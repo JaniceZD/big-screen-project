@@ -4,12 +4,19 @@ import { createEchartsOptions } from '../shared/create-echarts-options';
 
 export const Chart10 = () => {
   const divRef = useRef(null);
-  useEffect(() => {
-    var myChart = echarts.init(divRef.current);
-    myChart.setOption(
+  const myChart = useRef(null);
+  const data = [
+    { type: '入室抢劫', num: 40 },
+    { type: '当街偷盗', num: 22 },
+    { type: '团伙诈骗', num: 20 },
+    { type: '刑事案件', num: 18 },
+    { type: '民事案件', num: 32 },
+  ];
+  const x = (data) => {
+    myChart.current.setOption(
       createEchartsOptions({
         xAxis: {
-          data: ['入室抢劫', '当街偷盗', '团伙诈骗', '刑事案件', '民事案件'],
+          data: data.map((i) => i.type),
           axisTick: { show: false },
           axisLine: {
             lineStyle: { color: '#083B70' },
@@ -37,7 +44,7 @@ export const Chart10 = () => {
         series: [
           {
             type: 'bar',
-            data: [40, 22, 20, 18, 32],
+            data: data.map((i) => i.num),
             color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
               {
                 offset: 0,
@@ -52,6 +59,17 @@ export const Chart10 = () => {
         ],
       })
     );
+  };
+  useEffect(() => {
+    myChart.current = echarts.init(divRef.current);
+    x(data);
+    setInterval(() => {
+      const newData = [...data];
+      for (let i = 0; i < 5; i++) {
+        newData[i].num = Math.random() * 40 + 10;
+      }
+      x(newData);
+    }, 1500);
   }, []);
 
   return <div ref={divRef} className="chart"></div>;

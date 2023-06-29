@@ -6,9 +6,10 @@ import { createEchartsOptions } from '../shared/create-echarts-options';
 
 export const Chart1 = () => {
   const divRef = useRef(null);
-  useEffect(() => {
-    var myChart = echarts.init(divRef.current);
-    myChart.setOption(
+  var myChart = useRef(null);
+  const data = [10, 20, 36, 41, 15, 26, 37, 18, 29];
+  const x = (data) => {
+    myChart.current.setOption(
       createEchartsOptions({
         xAxis: {
           data: [
@@ -48,11 +49,22 @@ export const Chart1 = () => {
         series: [
           {
             type: 'bar',
-            data: [10, 20, 36, 41, 15, 26, 37, 18, 29],
+            data: data,
           },
         ],
       })
     );
+  };
+  useEffect(() => {
+    myChart.current = echarts.init(divRef.current);
+    x(data);
+    setInterval(() => {
+      const newData = [...data];
+      for (let i = 0; i < 9; i++) {
+        newData[i] = Math.round(Math.random() * 60) + 1;
+      }
+      x(newData);
+    }, 1500);
   }, []);
   return (
     <div className="bordered 管辖统计">

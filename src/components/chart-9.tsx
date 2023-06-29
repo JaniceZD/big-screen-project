@@ -5,15 +5,26 @@ import { px } from '../shared/px';
 
 export const Chart9 = () => {
   const divRef = useRef(null);
-  useEffect(() => {
-    var myChart = echarts.init(divRef.current);
-    myChart.setOption(
+  const myChart = useRef(null);
+  const data = [
+    { age: 0, probability: 0.19 },
+    { age: 18, probability: 0.2 },
+    { age: 28, probability: 0.26 },
+    { age: 38, probability: 0.35 },
+    { age: 48, probability: 0.26 },
+    { age: 58, probability: 0.2 },
+    { age: 68, probability: 0.08 },
+    { age: 78, probability: 0.06 },
+  ];
+
+  const x = (data) => {
+    myChart.current.setOption(
       createEchartsOptions({
         color: '#F7A110',
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: [0, 18, 28, 38, 48, 58, 68, 78],
+          data: data.map((i) => i.age),
           splitLine: { show: true, lineStyle: { color: '#073E78' } },
           axisTick: { show: false },
           axisLine: { show: false },
@@ -30,7 +41,7 @@ export const Chart9 = () => {
         series: [
           {
             type: 'line',
-            data: [0.19, 0.2, 0.26, 0.35, 0.26, 0.2, 0.08, 0.06],
+            data: data.map((i) => i.probability),
             symbol: 'circle',
             symbolSize: px(12),
             lineStyle: { width: px(2) },
@@ -50,6 +61,18 @@ export const Chart9 = () => {
         ],
       })
     );
+  };
+  useEffect(() => {
+    myChart.current = echarts.init(divRef.current);
+    x(data);
+    setInterval(() => {
+      const newData = [...data];
+      newData[0].probability = Math.random() * 0.2 + 0.05;
+      for (let i = 1; i < 8; i++) {
+        newData[i].probability = Math.random() * 0.25 + 0.15;
+      }
+      x(newData);
+    }, 1500);
   }, []);
 
   return (

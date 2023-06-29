@@ -26,7 +26,7 @@ export const Chart2 = () => {
         newData[i][2012] = Math.round(Math.random() * 10) + 1;
       }
       x(newData);
-    }, 2000);
+    }, 1500);
   }, []);
   const x = (data) => {
     myChart.current.setOption(
